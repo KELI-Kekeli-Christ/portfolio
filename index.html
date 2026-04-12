@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KELI Kekeli Christ – AI Engineer & Software Developer. Building intelligent, scalable systems. Portfolio showcasing AI, ML, and full-stack projects." />
+  <meta name="keywords" content="AI Engineer, Software Developer, Machine Learning, Deep Learning, Python, React, Portfolio" />
+  <meta property="og:title" content="KELI Kekeli Christ – AI Engineer & Software Developer" />
+  <meta property="og:description" content="Specialized in Artificial Intelligence and full-stack development. Co-founder of Codeurs Pro (600+ members)." />
+  <meta property="og:type" content="website" />
+  <title>KELI Kekeli Christ — AI Engineer & Software Developer</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #050b18;
+      --bg-card:    #0d1b2e;
+      --bg-card2:   #0a1628;
+      --border:     rgba(99, 179, 237, 0.12);
+      --border-h:   rgba(99, 179, 237, 0.35);
+      --primary:    #63b3ed;
+      --accent:     #9f7aea;
+      --cyan:       #76e4f7;
+      --green:      #68d391;
+      --orange:     #f6ad55;
+      --text:       #e2e8f0;
+      --text-muted: #718096;
+      --text-dim:   #4a5568;
+      --gradient:   linear-gradient(135deg, #63b3ed, #9f7aea);
+      --gradient2:  linear-gradient(135deg, #76e4f7, #63b3ed);
+      --radius:     14px;
+      --shadow:     0 4px 24px rgba(0,0,0,0.4);
+      --shadow-h:   0 8px 40px rgba(99,179,237,0.15);
+      --font:       'Inter', sans-serif;
+      --mono:       'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+    /* ─── Noise texture overlay ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ─── Grid background ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Glow orbs ─── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 20s ease-in-out infinite;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--primary); top: -200px; left: -200px; }
+    .orb-2 { width: 500px; height: 500px; background: var(--accent); bottom: -150px; right: -150px; animation-delay: -7s; }
+    .orb-3 { width: 350px; height: 350px; background: var(--cyan); top: 40%; left: 50%; animation-delay: -14s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(30px, -40px) scale(1.05); }
+      66%       { transform: translate(-20px, 30px) scale(0.95); }
+    }
+
+    /* ─── Layout ─── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+    section { padding: 100px 0; }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(5, 11, 24, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--primary); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ─── Hero ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99,179,237,0.08);
+      border: 1px solid rgba(99,179,237,0.2);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero-name {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      min-height: 2em;
+    }
+    .typed-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background: var(--primary);
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 560px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font);
+    }
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(99,179,237,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(99,179,237,0.45);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-h);
+    }
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(99,179,237,0.05);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+
+    /* Avatar */
+    .hero-avatar {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .avatar-ring {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--gradient);
+      padding: 3px;
+      animation: spin-slow 12s linear infinite;
+    }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      animation: spin-slow 12s linear infinite reverse;
+    }
+    .avatar-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-h);
+      border-radius: 10px;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ─── Section Headings ─── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--primary);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-title span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-sub {
+      color: var(--text-muted);
+      max-width: 560px;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .section-header { margin-bottom: 4rem; }
+
+    /* ─── About ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+      font-size: 0.975rem;
+    }
+    .about-text p strong { color: var(--text); }
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .highlight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: all 0.3s;
+    }
+    .highlight-card:hover {
+      border-color: var(--border-h);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-h);
+    }
+    .highlight-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .highlight-title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .highlight-val { font-size: 0.78rem; color: var(--text-muted); }
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .info-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      transition: all 0.3s;
+    }
+    .info-item:hover {
+      border-color: var(--border-h);
+      box-shadow: var(--shadow-h);
+    }
+    .info-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .info-content { flex: 1; min-width: 0; }
+    .info-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; margin-bottom: 0.2rem; }
+    .info-val { font-size: 0.9rem; font-weight: 500; color: var(--text); word-break: break-all; }
+    .info-val a { color: var(--primary); text-decoration: none; }
+    .info-val a:hover { text-decoration: underline; }
+
+    /* ─── Skills ─── */
+    .skills-categories { display: flex; flex-direction: column; gap: 2.5rem; }
+    .skills-cat-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .skills-cat-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .skills-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .skill-tag {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .skill-tag:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(99,179,237,0.06);
+      transform: translateY(-2px);
+    }
+    .skill-tag.hot {
+      border-color: rgba(159,122,234,0.35);
+      background: rgba(159,122,234,0.06);
+      color: var(--accent);
+    }
+    .skill-tag.hot:hover { border-color: var(--accent); background: rgba(159,122,234,0.12); }
+
+    /* ─── Experience ─── */
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(99,179,237,0.2);
+    }
+    .timeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .timeline-card:hover {
+      border-color: var(--border-h);
+      box-shadow: var(--shadow-h);
+      transform: translateX(4px);
+    }
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-role { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .timeline-company { font-size: 0.85rem; color: var(--primary); font-weight: 500; }
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .timeline-desc {
+      margin-top: 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.8;
+    }
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .mini-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(99,179,237,0.06);
+      border: 1px solid rgba(99,179,237,0.15);
+      border-radius: 5px;
+      color: var(--primary);
+    }
+
+    /* ─── Education ─── */
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+    }
+    .edu-card:hover {
+      border-color: var(--border-h);
+      box-shadow: var(--shadow-h);
+      transform: translateY(-4px);
+    }
+    .edu-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .edu-degree { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .edu-school { font-size: 0.875rem; color: var(--primary); font-weight: 500; margin-bottom: 0.75rem; }
+    .edu-details { font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ─── Projects ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover {
+      border-color: var(--border-h);
+      box-shadow: var(--shadow-h);
+      transform: translateY(-5px);
+    }
+    .project-card:hover::after { opacity: 0.03; }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .project-icon { font-size: 1.8rem; }
+    .project-links { display: flex; gap: 0.5rem; }
+    .project-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .project-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(99,179,237,0.08);
+    }
+    .project-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .project-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; flex: 1; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
+    .stack-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      background: rgba(118,228,247,0.06);
+      border: 1px solid rgba(118,228,247,0.15);
+      border-radius: 5px;
+      color: var(--cyan);
+    }
+
+    /* ─── Certifications ─── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.3s;
+    }
+    .cert-card:hover {
+      border-color: var(--border-h);
+      box-shadow: var(--shadow-h);
+      transform: translateY(-3px);
+    }
+    .cert-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .cert-info { flex: 1; min-width: 0; }
+    .cert-name { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; line-height: 1.4; }
+    .cert-issuer { font-size: 0.78rem; color: var(--primary); font-weight: 500; margin-bottom: 0.25rem; }
+    .cert-date { font-size: 0.72rem; color: var(--text-muted); font-family: var(--mono); }
+
+    /* ─── Community / Extras ─── */
+    .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .community-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .community-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient2);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .community-card:hover {
+      border-color: var(--border-h);
+      box-shadow: var(--shadow-h);
+      transform: translateY(-4px);
+    }
+    .community-card:hover::after { transform: scaleX(1); }
+    .community-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .community-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .community-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; }
+    .community-num {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Contact ─── */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .contact-card:hover {
+      border-color: var(--border-h);
+      box-shadow: var(--shadow-h);
+      transform: translateX(4px);
+    }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(99,179,237,0.08);
+      border: 1px solid rgba(99,179,237,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+    .contact-val { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); }
+    .form-input, .form-textarea {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      outline: none;
+      resize: none;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99,179,237,0.1);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
+    .form-textarea { min-height: 130px; }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-text { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-social { display: flex; gap: 0.75rem; }
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .social-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(99,179,237,0.06);
+    }
+
+    /* ─── Animations ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+    .fade-up-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-avatar { display: none; }
+      .hero-cta { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .community-grid { grid-template-columns: 1fr; }
+      .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 680px) {
+      section { padding: 70px 0; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(5,11,24,0.97);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        z-index: 99;
+      }
+      .hamburger { display: flex; }
+      .about-highlights { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+
+    /* ─── Back to top ─── */
+    #back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--gradient);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      z-index: 50;
+      box-shadow: 0 4px 20px rgba(99,179,237,0.3);
+    }
+    #back-top.show { opacity: 1; transform: translateY(0); }
+    #back-top:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(99,179,237,0.5); }
+
+    /* ─── Progress bar ─── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--gradient);
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Progress bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">&lt;KKC /&gt;</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-badge">Available for opportunities</div>
+          <h1 class="hero-name">
+            KELI<br/>
+            <span>Kekeli Christ</span>
+          </h1>
+          <p class="hero-title">
+            <span id="typed-text"></span><span class="typed-cursor"></span>
+          </p>
+          <p class="hero-desc">
+            AI Engineer & Full-Stack Developer specializing in intelligent, scalable systems.
+            Co-founder of <strong>Codeurs Pro</strong> — a thriving community of 600+ tech professionals.
+            Passionate about turning complex problems into elegant, data-driven solutions.
+          </p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">
+              <span>&#128187;</span> View Projects
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              <span>&#9993;</span> Get in Touch
+            </a>
+            <a href="keli_kekeli_cv_.pdf" download class="btn btn-outline">
+              <span>&#128196;</span> Download CV
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-num" data-target="57">0</span>
+              <span class="stat-label">Public Repos</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="50">0</span>
+              <span class="stat-label">Certifications</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="600">0</span>
+              <span class="stat-label">Community Members</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="6">0</span>
+              <span class="stat-label">Roles Held</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-avatar">
+          <div class="avatar-ring">
+            <div class="avatar-inner">&#129302;</div>
+          </div>
+          <div class="avatar-badge">&#128994; Open to Work</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 01. about</div>
+        <h2 class="section-title">Who I <span>Am</span></h2>
+        <p class="section-sub">A developer driven by curiosity, impact, and a love for intelligent systems.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="fade-up fade-up-delay-1">
+          <div class="about-text">
+            <p>
+              Hi! I'm <strong>KELI Kekeli Christ</strong>, an AI Engineer and Software Developer based in France,
+              currently pursuing my <strong>Master 1 in Artificial Intelligence</strong> at the Université d'Avignon.
+            </p>
+            <p>
+              I specialize in building intelligent, scalable systems — from machine learning pipelines to
+              full-stack web applications. Whether it's training neural networks, designing RESTful APIs,
+              or crafting responsive frontends, I bring a holistic engineering mindset to every project.
+            </p>
+            <p>
+              Beyond code, I co-founded <strong>Codeurs Pro</strong>, a professional tech community that
+              has grown to over <strong>600 members</strong>, fostering collaboration and knowledge-sharing
+              among developers across Africa and the diaspora.
+            </p>
+            <p>
+              I'm particularly drawn to AI research, generative AI applications, and real-world deployments
+              that create measurable impact. I thrive in international, multidisciplinary teams.
+            </p>
+          </div>
+
+          <div class="about-highlights">
+            <div class="highlight-card">
+              <div class="highlight-icon">&#127758;</div>
+              <div class="highlight-title">Location</div>
+              <div class="highlight-val">France (open to remote & on-site)</div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon">&#127891;</div>
+              <div class="highlight-title">Current Study</div>
+              <div class="highlight-val">M1 Artificial Intelligence — Univ. d'Avignon</div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon">&#128172;</div>
+              <div class="highlight-title">Languages</div>
+              <div class="highlight-val">French (native), English (professional)</div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-icon">&#128640;</div>
+              <div class="highlight-title">Focus</div>
+              <div class="highlight-val">AI systems, Full-Stack, Open Source</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-list fade-up fade-up-delay-2">
+          <div class="info-item">
+            <span class="info-icon">&#128231;</span>
+            <div class="info-content">
+              <div class="info-label">Email</div>
+              <div class="info-val"><a href="mailto:christdev9@gmail.com">christdev9@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">&#128222;</span>
+            <div class="info-content">
+              <div class="info-label">Phone</div>
+              <div class="info-val"><a href="tel:+33746522960">+33 07 46 52 29 60</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">&#128279;</span>
+            <div class="info-content">
+              <div class="info-label">GitHub</div>
+              <div class="info-val"><a href="https://github.com/KELI-Kekeli-Christ" target="_blank" rel="noopener">KELI-Kekeli-Christ</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">&#128100;</span>
+            <div class="info-content">
+              <div class="info-label">LinkedIn</div>
+              <div class="info-val"><a href="https://linkedin.com/in/christ-kekeli-keli" target="_blank" rel="noopener">christ-kekeli-keli</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">&#127760;</span>
+            <div class="info-content">
+              <div class="info-label">Portfolio</div>
+              <div class="info-val"><a href="https://kelikekelichrist.vercel.app" target="_blank" rel="noopener">kelikekelichrist.vercel.app</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">&#127970;</span>
+            <div class="info-content">
+              <div class="info-label">Community</div>
+              <div class="info-val">Co-founder, Codeurs Pro (600+ members)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS ═══ -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 02. skills</div>
+        <h2 class="section-title">Tech <span>Stack</span></h2>
+        <p class="section-sub">A broad, deep toolkit built over years of hands-on projects and research.</p>
+      </div>
+
+      <div class="skills-categories fade-up fade-up-delay-1">
+        <div>
+          <div class="skills-cat-title">&#129302; AI / Machine Learning</div>
+          <div class="skills-tags">
+            <span class="skill-tag hot">TensorFlow</span>
+            <span class="skill-tag hot">PyTorch</span>
+            <span class="skill-tag hot">Keras</span>
+            <span class="skill-tag hot">scikit-learn</span>
+            <span class="skill-tag hot">OpenCV</span>
+            <span class="skill-tag hot">CUDA</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag">SciPy</span>
+            <span class="skill-tag">Generative AI</span>
+            <span class="skill-tag">Bayesian Inference</span>
+            <span class="skill-tag">NLP</span>
+            <span class="skill-tag">Computer Vision</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skills-cat-title">&#128187; Languages</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">Dart</span>
+            <span class="skill-tag">Bash</span>
+            <span class="skill-tag">R</span>
+            <span class="skill-tag">LaTeX</span>
+            <span class="skill-tag">SQL</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skills-cat-title">&#127760; Frontend & Mobile</div>
+          <div class="skills-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">Vue.js</span>
+            <span class="skill-tag">Flutter</span>
+            <span class="skill-tag">TailwindCSS</span>
+            <span class="skill-tag">Bootstrap</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skills-cat-title">&#9881;&#65039; Backend & APIs</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Express.js</span>
+            <span class="skill-tag">NestJS</span>
+            <span class="skill-tag">Django</span>
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">Spring Boot</span>
+            <span class="skill-tag">AdonisJS</span>
+            <span class="skill-tag">Socket.io</span>
+            <span class="skill-tag">Laravel</span>
+            <span class="skill-tag">REST API</span>
+            <span class="skill-tag">GraphQL</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skills-cat-title">&#128196; Databases</div>
+          <div class="skills-tags">
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">SQLite</span>
+            <span class="skill-tag">MariaDB</span>
+            <span class="skill-tag">Firebase</span>
+            <span class="skill-tag">Oracle</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skills-cat-title">&#9729;&#65039; DevOps & Cloud</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Azure</span>
+            <span class="skill-tag">Google Cloud</span>
+            <span class="skill-tag">Vercel</span>
+            <span class="skill-tag">Netlify</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">Postman</span>
+            <span class="skill-tag">Figma</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 03. experience</div>
+        <h2 class="section-title">Work <span>Experience</span></h2>
+        <p class="section-sub">Building real solutions across AI, backend, and web development.</p>
+      </div>
+
+      <div class="timeline fade-up fade-up-delay-1">
+
+        <div class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Data Analyst</div>
+                <div class="timeline-company">Yas Togo</div>
+              </div>
+              <span class="timeline-date">Aug 2025 — Nov 2025</span>
+            </div>
+            <p class="timeline-desc">
+              Designed and maintained SQL/PostgreSQL data pipelines to support business intelligence
+              dashboards. Produced actionable insights through data cleaning, aggregation, and visualization.
+            </p>
+            <div class="timeline-tags">
+              <span class="mini-tag">PostgreSQL</span>
+              <span class="mini-tag">SQL</span>
+              <span class="mini-tag">Data Analysis</span>
+              <span class="mini-tag">Visualization</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">AI Developer</div>
+                <div class="timeline-company">New Brain Factory</div>
+              </div>
+              <span class="timeline-date">Apr 2025 — Jul 2025</span>
+            </div>
+            <p class="timeline-desc">
+              Built AI-powered automation workflows and chatbots using LLMs and agent frameworks.
+              Implemented web scraping pipelines and integrated AI capabilities into production systems.
+            </p>
+            <div class="timeline-tags">
+              <span class="mini-tag">LLMs</span>
+              <span class="mini-tag">AI Agents</span>
+              <span class="mini-tag">Python</span>
+              <span class="mini-tag">Web Scraping</span>
+              <span class="mini-tag">Automation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Web Developer</div>
+                <div class="timeline-company">La Meute du Digital</div>
+              </div>
+              <span class="timeline-date">Apr 2025 — Jul 2025</span>
+            </div>
+            <p class="timeline-desc">
+              Developed and maintained WordPress-based client websites with custom database integrations.
+              Optimized SEO, performance, and responsive design across multiple projects.
+            </p>
+            <div class="timeline-tags">
+              <span class="mini-tag">WordPress</span>
+              <span class="mini-tag">PHP</span>
+              <span class="mini-tag">MySQL</span>
+              <span class="mini-tag">SEO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Freelance Developer</div>
+                <div class="timeline-company">BASILEIA</div>
+              </div>
+              <span class="timeline-date">Sep 2024 — Jan 2025</span>
+            </div>
+            <p class="timeline-desc">
+              Designed and delivered a full-featured driving school management platform — including
+              student enrollment, scheduling, payment tracking, and admin dashboards.
+            </p>
+            <div class="timeline-tags">
+              <span class="mini-tag">Full-Stack</span>
+              <span class="mini-tag">Django</span>
+              <span class="mini-tag">PostgreSQL</span>
+              <span class="mini-tag">React</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Backend Developer</div>
+                <div class="timeline-company">US & YOU LLC</div>
+              </div>
+              <span class="timeline-date">Jul 2024 — Oct 2024</span>
+            </div>
+            <p class="timeline-desc">
+              Built scalable REST APIs using Spring Boot and NestJS for a US-based company.
+              Implemented authentication, role-based access control, and third-party integrations.
+            </p>
+            <div class="timeline-tags">
+              <span class="mini-tag">Spring Boot</span>
+              <span class="mini-tag">NestJS</span>
+              <span class="mini-tag">REST API</span>
+              <span class="mini-tag">Java</span>
+              <span class="mini-tag">TypeScript</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Python Programmer</div>
+                <div class="timeline-company">TDS Avenue Codforge & CodSoft</div>
+              </div>
+              <span class="timeline-date">Jul 2024 — Aug 2024</span>
+            </div>
+            <p class="timeline-desc">
+              Developed Python-based automation scripts and small-scale ML models as part of
+              intensive internship programs. Focused on data preprocessing and model evaluation.
+            </p>
+            <div class="timeline-tags">
+              <span class="mini-tag">Python</span>
+              <span class="mini-tag">Machine Learning</span>
+              <span class="mini-tag">Data Processing</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EDUCATION ═══ -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 04. education</div>
+        <h2 class="section-title">Academic <span>Background</span></h2>
+        <p class="section-sub">Rigorous academic training combining theory and applied engineering.</p>
+      </div>
+
+      <div class="edu-grid fade-up fade-up-delay-1">
+        <div class="edu-card">
+          <div class="edu-icon">&#127979;</div>
+          <div class="edu-degree">Master 1 — Artificial Intelligence</div>
+          <div class="edu-school">Université d'Avignon, France</div>
+          <div class="edu-details">
+            Advanced coursework in deep learning, natural language processing, computer vision,
+            probabilistic models, and AI ethics. Research-oriented program with strong emphasis
+            on practical AI deployments.
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-icon">&#127891;</div>
+          <div class="edu-degree">Bachelor — Software Engineering</div>
+          <div class="edu-school">Université Catholique de l'Afrique de l'Ouest (UCAO)</div>
+          <div class="edu-details">
+            Comprehensive training in software design, algorithms, data structures, databases,
+            operating systems, and project management. Graduated with a strong engineering
+            foundation applied to real-world systems.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS ═══ -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 05. projects</div>
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <p class="section-sub">57 public repositories — here are the highlights. Each card links directly to the repo.</p>
+      </div>
+
+      <div class="projects-grid fade-up fade-up-delay-1">
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128250;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/Health_making_decision" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Health Decision Support System</div>
+          <div class="project-desc">
+            AI-powered medical decision support using probabilistic reasoning and Bayesian networks
+            to assist healthcare professionals with diagnostic inference.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Jupyter</span>
+            <span class="stack-tag">Bayesian</span>
+            <span class="stack-tag">scikit-learn</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128200;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/Medical-Bayesien-Inference" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Medical Bayesian Inference Engine</div>
+          <div class="project-desc">
+            Implements Bayesian inference techniques for medical diagnosis, modeling uncertainty
+            in patient data to produce probabilistic diagnostic outputs.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">NumPy</span>
+            <span class="stack-tag">SciPy</span>
+            <span class="stack-tag">Bayesian</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128218;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/AI_PROJECT" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Book Recommendation Engine</div>
+          <div class="project-desc">
+            Collaborative filtering recommendation system using K-Nearest Neighbors algorithm
+            to suggest books based on user reading history and preferences.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">KNN</span>
+            <span class="stack-tag">Pandas</span>
+            <span class="stack-tag">scikit-learn</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128008;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/supervised_learning" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Cat & Dog Image Classifier</div>
+          <div class="project-desc">
+            Deep learning image classification model using CNNs and TensorFlow to distinguish
+            between cats and dogs with high accuracy on the popular benchmark dataset.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">TensorFlow</span>
+            <span class="stack-tag">CNN</span>
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">OpenCV</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#129302;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/ai_development_your_own" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">LinkedIn Scraping AI Agent</div>
+          <div class="project-desc">
+            Autonomous AI agent that scrapes LinkedIn profiles, processes data, and generates
+            structured reports — showcasing agentic AI capabilities with real-world data pipelines.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">LLM</span>
+            <span class="stack-tag">Agents</span>
+            <span class="stack-tag">BeautifulSoup</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128241;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/social_network" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Student Social Network</div>
+          <div class="project-desc">
+            Full-featured social platform built for university students, including authentication,
+            real-time messaging, posts, comments, and friend management.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Next.js</span>
+            <span class="stack-tag">Express.js</span>
+            <span class="stack-tag">Socket.io</span>
+            <span class="stack-tag">MongoDB</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128722;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/project_ihm" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">E-Commerce Platform (CS50W)</div>
+          <div class="project-desc">
+            E-commerce auction platform inspired by eBay, built as part of Harvard's CS50W.
+            Features listings, bidding, watchlists, and category filtering.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Laravel</span>
+            <span class="stack-tag">PHP</span>
+            <span class="stack-tag">MySQL</span>
+            <span class="stack-tag">Bootstrap</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128200;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/Hybrid-Method-for-Minimun-Global-Function" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Hybrid Global Function Minimizer</div>
+          <div class="project-desc">
+            Research-grade implementation of a hybrid optimization method combining gradient descent
+            and metaheuristic strategies for finding global minima in complex objective functions.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">NumPy</span>
+            <span class="stack-tag">Optimization</span>
+            <span class="stack-tag">Research</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#127968;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/hotel_front" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+              <a href="https://github.com/KELI-Kekeli-Christ/hotel-backend" target="_blank" rel="noopener" class="project-link" title="Backend">&#9881;&#65039;</a>
+            </div>
+          </div>
+          <div class="project-name">Hotel Management System</div>
+          <div class="project-desc">
+            Full-stack hotel platform with room booking, guest management, billing and admin dashboards.
+            Vue.js frontend with PHP/Laravel REST API backend.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Vue.js</span>
+            <span class="stack-tag">PHP</span>
+            <span class="stack-tag">Laravel</span>
+            <span class="stack-tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#127981;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/auto_ecole" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Auto École — Driving School Platform</div>
+          <div class="project-desc">
+            Full driving school management system for BASILEIA: student enrollment, session scheduling,
+            payment tracking, instructor assignments, and admin dashboards.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">JavaScript</span>
+            <span class="stack-tag">Full-Stack</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128101;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/landng_page_codeurs_pro" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Codeurs Pro — Landing Page</div>
+          <div class="project-desc">
+            Official landing page for Codeurs Pro, the tech community of 600+ developers co-founded
+            by KELI Kekeli Christ. Built with modern TypeScript and animated UI.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">TailwindCSS</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128247;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/ai_ocr_front" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">AI OCR — Document Recognition</div>
+          <div class="project-desc">
+            Frontend application for AI-powered Optical Character Recognition: upload documents,
+            extract text automatically, and export structured data.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">JavaScript</span>
+            <span class="stack-tag">OCR</span>
+            <span class="stack-tag">AI</span>
+            <span class="stack-tag">React</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128202;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/data_analyst_project" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Store Data Analysis</div>
+          <div class="project-desc">
+            End-to-end data analysis of a retail store: sales trends, customer segmentation,
+            and product performance using Python and interactive visualizations.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Pandas</span>
+            <span class="stack-tag">Matplotlib</span>
+            <span class="stack-tag">Jupyter</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128279;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/n8n-render-docker" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">n8n on Render — Docker Deployment</div>
+          <div class="project-desc">
+            Production-ready Docker deployment of n8n workflow automation on Render.com
+            with persistent disk storage and PostgreSQL — one-click deploy template.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Docker</span>
+            <span class="stack-tag">n8n</span>
+            <span class="stack-tag">Render</span>
+            <span class="stack-tag">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#127988;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/DataBattle" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">DataBattle — Competition Project</div>
+          <div class="project-desc">
+            Data science competition project featuring advanced ML modeling, feature engineering,
+            and ensemble methods to maximize predictive performance on a real-world dataset.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Jupyter</span>
+            <span class="stack-tag">scikit-learn</span>
+            <span class="stack-tag">XGBoost</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128204;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/programming_distribued" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Distributed Heating System Simulation</div>
+          <div class="project-desc">
+            Simulation of a multi-room heating control system where rooms communicate via TCP/UDP,
+            demonstrating distributed systems concepts and network programming in Java.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Java</span>
+            <span class="stack-tag">TCP/UDP</span>
+            <span class="stack-tag">Distributed</span>
+            <span class="stack-tag">Sockets</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#127926;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/voicemaker" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">VoiceMaker — TTS Tool</div>
+          <div class="project-desc">
+            Python-based text-to-speech tool leveraging AI voice synthesis APIs.
+            Converts written content into natural-sounding audio for accessibility and content creation.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">TTS</span>
+            <span class="stack-tag">AI</span>
+            <span class="stack-tag">Audio</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-icon">&#128083;</span>
+            <div class="project-links">
+              <a href="https://github.com/KELI-Kekeli-Christ/Scrapping-tools" target="_blank" rel="noopener" class="project-link" title="GitHub">&#128279;</a>
+            </div>
+          </div>
+          <div class="project-name">Web Scraping Toolkit</div>
+          <div class="project-desc">
+            Collection of Python scrapers for extracting structured data from websites.
+            Used in professional AI workflows at New Brain Factory for data collection pipelines.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">BeautifulSoup</span>
+            <span class="stack-tag">Selenium</span>
+            <span class="stack-tag">Requests</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center; margin-top:3rem;">
+        <a href="https://github.com/KELI-Kekeli-Christ" target="_blank" rel="noopener" class="btn btn-outline">
+          &#128279; View All 57 Repositories on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CERTIFICATIONS ═══ -->
+  <section id="certifications">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 06. certifications</div>
+        <h2 class="section-title">50+ Credentials & <span>Certifications</span></h2>
+        <p class="section-sub">Continuous learning from world-class institutions: Stanford, Harvard, Google, IBM, Microsoft, DeepLearning.AI, Cisco, and more.</p>
+      </div>
+
+      <!-- CTA banner -->
+      <div class="fade-up" style="background:linear-gradient(135deg,rgba(99,179,237,0.08),rgba(159,122,234,0.08));border:1px solid rgba(99,179,237,0.2);border-radius:14px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:3rem;">
+        <div>
+          <div style="font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:0.25rem;">View all 50+ certifications on LinkedIn</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">Full list with credential IDs, issue dates, and verification links</div>
+        </div>
+        <a href="https://www.linkedin.com/in/christ-kekeli-keli/#licenses_and_certifications" target="_blank" rel="noopener" class="btn btn-primary" style="white-space:nowrap;">
+          &#128100; Open LinkedIn Profile
+        </a>
+      </div>
+
+      <!-- Category: AI & Machine Learning -->
+      <div class="fade-up fade-up-delay-1" style="margin-bottom:2.5rem;">
+        <div class="skills-cat-title">&#129302; Artificial Intelligence &amp; Machine Learning</div>
+        <div class="certs-grid">
+
+          <div class="cert-card">
+            <div class="cert-logo">&#127891;</div>
+            <div class="cert-info">
+              <div class="cert-name">Machine Learning Specialization</div>
+              <div class="cert-issuer">Stanford University / DeepLearning.AI</div>
+              <div class="cert-date">Coursera · Andrew Ng</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129504;</div>
+            <div class="cert-info">
+              <div class="cert-name">Deep Learning Specialization (5 courses)</div>
+              <div class="cert-issuer">DeepLearning.AI</div>
+              <div class="cert-date">Coursera · Andrew Ng</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129302;</div>
+            <div class="cert-info">
+              <div class="cert-name">Generative AI with LLMs</div>
+              <div class="cert-issuer">DeepLearning.AI / AWS</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129302;</div>
+            <div class="cert-info">
+              <div class="cert-name">ChatGPT Prompt Engineering for Developers</div>
+              <div class="cert-issuer">DeepLearning.AI / OpenAI</div>
+              <div class="cert-date">DeepLearning.AI Short Course</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129302;</div>
+            <div class="cert-info">
+              <div class="cert-name">LangChain for LLM Application Development</div>
+              <div class="cert-issuer">DeepLearning.AI</div>
+              <div class="cert-date">DeepLearning.AI Short Course</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129302;</div>
+            <div class="cert-info">
+              <div class="cert-name">Building Systems with the ChatGPT API</div>
+              <div class="cert-issuer">DeepLearning.AI / OpenAI</div>
+              <div class="cert-date">DeepLearning.AI Short Course</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129302;</div>
+            <div class="cert-info">
+              <div class="cert-name">Finetuning Large Language Models</div>
+              <div class="cert-issuer">DeepLearning.AI</div>
+              <div class="cert-date">DeepLearning.AI Short Course</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129302;</div>
+            <div class="cert-info">
+              <div class="cert-name">AI Agents in LangGraph</div>
+              <div class="cert-issuer">DeepLearning.AI / LangChain</div>
+              <div class="cert-date">DeepLearning.AI Short Course</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Category: Data Science & Analytics -->
+      <div class="fade-up fade-up-delay-2" style="margin-bottom:2.5rem;">
+        <div class="skills-cat-title">&#128202; Data Science &amp; Analytics</div>
+        <div class="certs-grid">
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128202;</div>
+            <div class="cert-info">
+              <div class="cert-name">Google Data Analytics Professional Certificate</div>
+              <div class="cert-issuer">Google</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128202;</div>
+            <div class="cert-info">
+              <div class="cert-name">IBM Data Science Professional Certificate</div>
+              <div class="cert-issuer">IBM</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128202;</div>
+            <div class="cert-info">
+              <div class="cert-name">Applied Data Science with Python Specialization</div>
+              <div class="cert-issuer">University of Michigan</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128200;</div>
+            <div class="cert-info">
+              <div class="cert-name">Data Analysis with Python</div>
+              <div class="cert-issuer">IBM</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128200;</div>
+            <div class="cert-info">
+              <div class="cert-name">Data Visualization with Python</div>
+              <div class="cert-issuer">IBM</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128200;</div>
+            <div class="cert-info">
+              <div class="cert-name">Python for Data Science, AI &amp; Development</div>
+              <div class="cert-issuer">IBM</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Category: Cloud & Microsoft -->
+      <div class="fade-up fade-up-delay-3" style="margin-bottom:2.5rem;">
+        <div class="skills-cat-title">&#9729;&#65039; Cloud, Microsoft &amp; DevOps</div>
+        <div class="certs-grid">
+
+          <div class="cert-card">
+            <div class="cert-logo">&#9729;&#65039;</div>
+            <div class="cert-info">
+              <div class="cert-name">Microsoft Azure AI Fundamentals (AI-900)</div>
+              <div class="cert-issuer">Microsoft</div>
+              <div class="cert-date">Microsoft Learn</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#9729;&#65039;</div>
+            <div class="cert-info">
+              <div class="cert-name">Microsoft Azure Fundamentals (AZ-900)</div>
+              <div class="cert-issuer">Microsoft</div>
+              <div class="cert-date">Microsoft Learn</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#9729;&#65039;</div>
+            <div class="cert-info">
+              <div class="cert-name">Google Cloud Fundamentals: Core Infrastructure</div>
+              <div class="cert-issuer">Google Cloud</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128196;</div>
+            <div class="cert-info">
+              <div class="cert-name">Docker Essentials: A Developer Introduction</div>
+              <div class="cert-issuer">IBM</div>
+              <div class="cert-date">Cognitive Class / IBM</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128204;</div>
+            <div class="cert-info">
+              <div class="cert-name">Cisco Introduction to Networks (CCNA)</div>
+              <div class="cert-issuer">Cisco Networking Academy</div>
+              <div class="cert-date">Cisco</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128204;</div>
+            <div class="cert-info">
+              <div class="cert-name">Cisco Python Essentials 1 &amp; 2</div>
+              <div class="cert-issuer">Cisco Networking Academy</div>
+              <div class="cert-date">Cisco</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Category: Web & Software Development -->
+      <div class="fade-up fade-up-delay-1" style="margin-bottom:2.5rem;">
+        <div class="skills-cat-title">&#128187; Web &amp; Software Development</div>
+        <div class="certs-grid">
+
+          <div class="cert-card">
+            <div class="cert-logo">&#127891;</div>
+            <div class="cert-info">
+              <div class="cert-name">CS50's Web Programming with Python &amp; JavaScript</div>
+              <div class="cert-issuer">Harvard University</div>
+              <div class="cert-date">edX — CS50W</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#127891;</div>
+            <div class="cert-info">
+              <div class="cert-name">CS50's Introduction to Computer Science</div>
+              <div class="cert-issuer">Harvard University</div>
+              <div class="cert-date">edX — CS50x</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#127891;</div>
+            <div class="cert-info">
+              <div class="cert-name">CS50's Introduction to Programming with Python</div>
+              <div class="cert-issuer">Harvard University</div>
+              <div class="cert-date">edX — CS50P</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128187;</div>
+            <div class="cert-info">
+              <div class="cert-name">The Web Developer Bootcamp</div>
+              <div class="cert-issuer">Udemy</div>
+              <div class="cert-date">Colt Steele</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128187;</div>
+            <div class="cert-info">
+              <div class="cert-name">Django REST Framework — Build REST APIs</div>
+              <div class="cert-issuer">Udemy</div>
+              <div class="cert-date">Python Backend</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128187;</div>
+            <div class="cert-info">
+              <div class="cert-name">Node.js, Express, MongoDB &amp; More</div>
+              <div class="cert-issuer">Udemy</div>
+              <div class="cert-date">The Complete Bootcamp</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128187;</div>
+            <div class="cert-info">
+              <div class="cert-name">React — The Complete Guide</div>
+              <div class="cert-issuer">Udemy</div>
+              <div class="cert-date">Maximilian Schwarzmüller</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128187;</div>
+            <div class="cert-info">
+              <div class="cert-name">Flutter &amp; Dart — The Complete Guide</div>
+              <div class="cert-issuer">Udemy</div>
+              <div class="cert-date">Maximilian Schwarzmüller</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Category: Other / Professional -->
+      <div class="fade-up fade-up-delay-2">
+        <div class="skills-cat-title">&#127942; Professional Development &amp; Other</div>
+        <div class="certs-grid">
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128202;</div>
+            <div class="cert-info">
+              <div class="cert-name">SQL for Data Science</div>
+              <div class="cert-issuer">University of California, Davis</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128202;</div>
+            <div class="cert-info">
+              <div class="cert-name">Mathematics for Machine Learning Specialization</div>
+              <div class="cert-issuer">Imperial College London</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128202;</div>
+            <div class="cert-info">
+              <div class="cert-name">Statistics with Python Specialization</div>
+              <div class="cert-issuer">University of Michigan</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#129504;</div>
+            <div class="cert-info">
+              <div class="cert-name">Natural Language Processing Specialization</div>
+              <div class="cert-issuer">DeepLearning.AI</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#128204;</div>
+            <div class="cert-info">
+              <div class="cert-name">Cybersecurity Fundamentals</div>
+              <div class="cert-issuer">IBM</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-logo">&#127891;</div>
+            <div class="cert-info">
+              <div class="cert-name">Agile with Atlassian Jira</div>
+              <div class="cert-issuer">Atlassian</div>
+              <div class="cert-date">Coursera</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:3rem;" class="fade-up">
+        <a href="https://www.linkedin.com/in/christ-kekeli-keli/#licenses_and_certifications" target="_blank" rel="noopener" class="btn btn-primary">
+          &#128100; See all 50+ certifications on LinkedIn
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ COMMUNITY ═══ -->
+  <section id="community">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 07. community</div>
+        <h2 class="section-title">Beyond <span>Code</span></h2>
+        <p class="section-sub">Building bridges between people and technology.</p>
+      </div>
+
+      <div class="community-grid fade-up fade-up-delay-1">
+        <div class="community-card">
+          <div class="community-icon">&#127968;</div>
+          <div class="community-title">Co-founder — Codeurs Pro</div>
+          <div class="community-desc">
+            Built and scaled a professional tech community from the ground up, connecting developers,
+            designers, and tech enthusiasts across Africa and the diaspora. Organized workshops,
+            hackathons, and mentoring sessions to accelerate careers in tech.
+          </div>
+          <div class="community-num">600+ Members</div>
+        </div>
+
+        <div class="community-card">
+          <div class="community-icon">&#129516;</div>
+          <div class="community-title">Open Source Contributor</div>
+          <div class="community-desc">
+            Maintains 57 public repositories covering AI research, web development, and educational
+            resources. Earned YOLO and Pull Shark badges on GitHub. Passionate about making
+            knowledge accessible to the next generation of African developers.
+          </div>
+          <div class="community-num">57 Repos</div>
+        </div>
+
+        <div class="community-card">
+          <div class="community-icon">&#127891;</div>
+          <div class="community-title">Lifelong Learner</div>
+          <div class="community-desc">
+            Committed to continuous education through top institutions. Completed programs from
+            Stanford, Harvard, Google, Microsoft, and DeepLearning.AI — always staying at the
+            forefront of emerging AI research and software practices.
+          </div>
+          <div class="community-num">8+ Certifications</div>
+        </div>
+
+        <div class="community-card">
+          <div class="community-icon">&#127760;</div>
+          <div class="community-title">International Profile</div>
+          <div class="community-desc">
+            French-based with African roots and a global mindset. Has worked with clients and
+            teams from across Europe, West Africa, and the US. Fluent in French and English,
+            comfortable in multicultural, international work environments.
+          </div>
+          <div class="community-num">3 Continents</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-label">// 08. contact</div>
+        <h2 class="section-title">Let's <span>Connect</span></h2>
+        <p class="section-sub">Open to research collaborations, internships, and full-time opportunities.</p>
+      </div>
+
+      <div class="contact-wrapper">
+        <div class="contact-info fade-up fade-up-delay-1">
+
+          <a href="mailto:christdev9@gmail.com" class="contact-card">
+            <div class="contact-icon">&#128231;</div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-val">christdev9@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="tel:+33746522960" class="contact-card">
+            <div class="contact-icon">&#128222;</div>
+            <div>
+              <div class="contact-label">Phone</div>
+              <div class="contact-val">+33 07 46 52 29 60</div>
+            </div>
+          </a>
+
+          <a href="https://linkedin.com/in/christ-kekeli-keli" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-icon">&#128100;</div>
+            <div>
+              <div class="contact-label">LinkedIn</div>
+              <div class="contact-val">christ-kekeli-keli</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/KELI-Kekeli-Christ" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-icon">&#128279;</div>
+            <div>
+              <div class="contact-label">GitHub</div>
+              <div class="contact-val">KELI-Kekeli-Christ</div>
+            </div>
+          </a>
+
+          <a href="keli_kekeli_cv_.pdf" download class="contact-card">
+            <div class="contact-icon">&#128196;</div>
+            <div>
+              <div class="contact-label">Resume / CV</div>
+              <div class="contact-val">Download PDF</div>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="contact-form fade-up fade-up-delay-2">
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name</label>
+            <input class="form-input" type="text" id="name" placeholder="Jane Recruiter" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" type="email" id="email" placeholder="jane@company.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject</label>
+            <input class="form-input" type="text" id="subject" placeholder="Internship opportunity / Research collaboration" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" placeholder="Tell me about the opportunity or collaboration..."></textarea>
+          </div>
+          <button class="btn btn-primary" id="send-btn" style="width:100%; justify-content:center;">
+            &#9993; Send Message
+          </button>
+          <p id="form-msg" style="text-align:center; font-size:0.85rem; color:var(--green); margin-top:0.5rem; display:none;"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-text">&#169; 2025 KELI Kekeli Christ &mdash; Crafted with passion in France</span>
+        <div class="footer-social">
+          <a href="https://github.com/KELI-Kekeli-Christ" target="_blank" rel="noopener" class="social-link" title="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://linkedin.com/in/christ-kekeli-keli" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+        <div class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="back-top" title="Back to top">&#8679;</button>
+
+  <script>
+    // ─── Typed text animation ───
+    const phrases = [
+      'AI Engineer',
+      'Software Developer',
+      'ML Researcher',
+      'Full-Stack Builder',
+      'Open Source Enthusiast',
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typed-text');
+    function type() {
+      const phrase = phrases[pi];
+      if (!deleting) {
+        el.textContent = phrase.slice(0, ++ci);
+        if (ci === phrase.length) { deleting = true; setTimeout(type, 2000); return; }
+      } else {
+        el.textContent = phrase.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+      }
+      setTimeout(type, deleting ? 60 : 110);
+    }
+    setTimeout(type, 500);
+
+    // ─── Navbar scroll effect ───
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ─── Reading progress bar ───
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      progressBar.style.width = (scrollTop / docH * 100) + '%';
+    });
+
+    // ─── Hamburger menu ───
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // ─── Fade-up on scroll ───
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    // ─── Counter animation ───
+    const countObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = +el.dataset.target;
+        const suffix = target >= 600 ? '+' : '';
+        let current = 0;
+        const step = Math.ceil(target / 60);
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(timer);
+        }, 20);
+        countObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-target]').forEach(el => countObs.observe(el));
+
+    // ─── Back to top ───
+    const backTop = document.getElementById('back-top');
+    window.addEventListener('scroll', () => backTop.classList.toggle('show', window.scrollY > 500));
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ─── Contact form (mailto fallback) ───
+    document.getElementById('send-btn').addEventListener('click', () => {
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) {
+        const msg = document.getElementById('form-msg');
+        msg.textContent = 'Please fill in all required fields.';
+        msg.style.color = 'var(--orange)';
+        msg.style.display = 'block';
+        return;
+      }
+      const mailto = `mailto:christdev9@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact: ' + name)}&body=${encodeURIComponent('From: ' + name + ' <' + email + '>\n\n' + message)}`;
+      window.location.href = mailto;
+      const msg = document.getElementById('form-msg');
+      msg.textContent = 'Opening your email client...';
+      msg.style.color = 'var(--green)';
+      msg.style.display = 'block';
+    });
+
+    // ─── Active nav link on scroll ───
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+    const activateNav = () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+      navAnchors.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--primary)' : '';
+      });
+    };
+    window.addEventListener('scroll', activateNav);
+  </script>
+</body>
+</html>
